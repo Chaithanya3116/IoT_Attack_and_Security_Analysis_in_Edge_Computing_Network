@@ -1,0 +1,15 @@
+[Unit]
+Description=Gunicorn instance to serve Flask app for LED control
+After=network.target
+
+[Service]
+User=pi
+Group=pi
+WorkingDirectory=/home/pi/led_control
+ExecStart=/home/pi/gunicorn_venv/bin/gunicorn --workers 3 --bind 0.0.0.0:8002 app:app
+Environment="PATH=/home/pi/gunicorn_venv/bin"
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
